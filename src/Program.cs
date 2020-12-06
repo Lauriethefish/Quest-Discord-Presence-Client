@@ -18,6 +18,7 @@ namespace Quest_Discord_Presence_Client
         public Program() {
             _config = Config.load();
 
+            // Connect to Discord RPC using our application ID
             Console.WriteLine("Connecting to Discord . . .");
             _client = new DiscordRpcClient("743131742759813160");
             _client.Initialize();
