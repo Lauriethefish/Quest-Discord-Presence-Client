@@ -1,0 +1,5 @@
+{
+    "QuestAddress": "192.168.0.72",
+    "QuestPort": 3500,
+    "UpdateInterval": 2000
+}
