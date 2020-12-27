@@ -1,2 +1,5 @@
 bin/
 obj/
+installer/
+installer.iss
+publish/
