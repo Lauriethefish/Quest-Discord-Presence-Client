@@ -93,7 +93,7 @@ namespace Quest_Discord_Presence_Client
 
         // Starts a FileSystemWatcher to auto-reload the config when it changes
         public void StartWatchingConfig() {
-            FileSystemWatcher _configWatcher = new FileSystemWatcher();
+            _configWatcher = new FileSystemWatcher();
             _configWatcher.NotifyFilter = NotifyFilters.LastWrite;
             _configWatcher.Filter = Config.CONFIG_PATH;
             _configWatcher.Path = Directory.GetCurrentDirectory();
