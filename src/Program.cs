@@ -95,7 +95,7 @@ namespace Quest_Discord_Presence_Client
         public void StartWatchingConfig() {
             FileSystemWatcher _configWatcher = new FileSystemWatcher();
             _configWatcher.NotifyFilter = NotifyFilters.LastWrite;
-            _configWatcher.Filter = "config.json";
+            _configWatcher.Filter = Config.CONFIG_PATH;
             _configWatcher.Path = Directory.GetCurrentDirectory();
             _configWatcher.Changed += OnConfigChanged;
             _configWatcher.EnableRaisingEvents = true;
