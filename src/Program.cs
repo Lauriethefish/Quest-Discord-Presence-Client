@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using DiscordRPC;
@@ -15,13 +16,16 @@ namespace Quest_Discord_Presence_Client
         static void Main(string[] args) {new Program();}
 
         private Config _config;
+
+        private FileSystemWatcher _configWatcher;
         private DiscordRpcClient _client;
         public Program() {
             _config = Config.load();
+            StartWatchingConfig();
 
             // Connect to Discord RPC using our application ID
-            reconnectClient(null, null);
-            _client.OnConnectionFailed += reconnectClient;
+            ReconnectClient(null, null);
+            _client.OnConnectionFailed += ReconnectClient;
 
             Console.WriteLine("Connection made. Querying Quest . . .");
             while(true) {
@@ -50,7 +54,7 @@ namespace Quest_Discord_Presence_Client
         }
         
         // Creates a new client in order to reconnect to discord
-        private void reconnectClient(object sender, ConnectionFailedMessage args) {
+        private void ReconnectClient(object sender, ConnectionFailedMessage args) {
             Console.WriteLine("Connecting to Discord . . .");
             try {
                 _client = new DiscordRpcClient("743131742759813160");
@@ -71,7 +75,7 @@ namespace Quest_Discord_Presence_Client
             byte[] jsonLength = new byte[4];
             socket.Receive(jsonLength);
 
-            int length = BitConverter.ToInt32(swapEndianness(jsonLength));
+            int length = BitConverter.ToInt32(SwapEndianness(jsonLength));
 
             // Then read the status as a string
             byte[] statusBytes = new byte[length];
@@ -81,10 +85,27 @@ namespace Quest_Discord_Presence_Client
             return JsonSerializer.Deserialize<Status>(statusString); // Deserialize it as a Status object
         }
 
-        private byte[] swapEndianness(byte[] input) {
+        private byte[] SwapEndianness(byte[] input) {
             List<byte> list = new List<byte>(input);
             list.Reverse();
             return list.ToArray();
+        }
+
+        // Starts a FileSystemWatcher to auto-reload the config when it changes
+        public void StartWatchingConfig() {
+            FileSystemWatcher _configWatcher = new FileSystemWatcher();
+            _configWatcher.NotifyFilter = NotifyFilters.LastWrite;
+            _configWatcher.Filter = "config.json";
+            _configWatcher.Path = Directory.GetCurrentDirectory();
+            _configWatcher.Changed += OnConfigChanged;
+            _configWatcher.EnableRaisingEvents = true;
+            Console.WriteLine("Listening for changes to the config");
+        }
+
+        public void OnConfigChanged(object sender, FileSystemEventArgs args) {
+            Console.WriteLine("Config was changed: reloading");
+            Thread.Sleep(1000);
+            _config = Config.load();
         }
     }
 }
