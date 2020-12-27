@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Collections.Generic;
 using DiscordRPC;
+using DiscordRPC.Message;
 
 namespace Quest_Discord_Presence_Client
 {
@@ -19,11 +20,9 @@ namespace Quest_Discord_Presence_Client
             _config = Config.load();
 
             // Connect to Discord RPC using our application ID
-            Console.WriteLine("Connecting to Discord . . .");
-            _client = new DiscordRpcClient("743131742759813160");
-            _client.Initialize();
+            reconnectClient(null, null);
+            _client.OnConnectionFailed += reconnectClient;
 
-            bool presenceShown = false;
             Console.WriteLine("Connection made. Querying Quest . . .");
             while(true) {
                 int timeBefore = DateTime.UtcNow.Millisecond;
@@ -31,25 +30,33 @@ namespace Quest_Discord_Presence_Client
                 Status status;
                 try {
                     status = GetStatus();
-
+                    
+                    _client.Invoke(); // Dispatch events
                     // Set the received presence
                     _client.SetPresence(status.ConvertToDiscord());
-                    presenceShown = true;
+                    Console.WriteLine("Successfully fetched presence");
                 }   catch(Exception ex) {                    
-                    if(presenceShown) {
-                        // Only print exceptions when we disconnect for the first time
-                        Console.Error.WriteLine("Exception occured while fetching the presence from the Quest (is your IP address correct and Beat Saber open?): " + ex.Message);
-                        
-                        // Disable the precence, since we aren't connected/Beat Saber is closed.
-                        Console.WriteLine("Disabling presense due to failed connection.");
-                        _client.ClearPresence();
-                        presenceShown = false;
-                    }
+                    Console.Error.WriteLine("Exception occured while fetching the presence from the Quest (is your IP address correct and Beat Saber open?): " + ex.Message);
+                    
+                    // Disable the precence, since we aren't connected/Beat Saber is closed.
+                    Console.WriteLine("Disabling presense due to failed connection.");
+                    _client.ClearPresence();
                 }
 
                 // Sleep for the remaining time
                 int timeElapsed = DateTime.UtcNow.Millisecond - timeBefore;
                 Thread.Sleep(Math.Max(_config.UpdateInterval - timeElapsed, 0)); // Make sure we don't sleep for a negative amount of time!
+            }
+        }
+        
+        // Creates a new client in order to reconnect to discord
+        private void reconnectClient(object sender, ConnectionFailedMessage args) {
+            Console.WriteLine("Connecting to Discord . . .");
+            try {
+                _client = new DiscordRpcClient("743131742759813160");
+                _client.Initialize();
+            }   catch(Exception ex)   {
+                Console.WriteLine("Failed to connect to discord " + ex.Message);
             }
         }
 
