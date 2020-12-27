@@ -10,7 +10,7 @@ services, the [old client & app](https://github.com/madmagic007/Oculus-Quest-Pre
 2. Run the installer, and when you finish it, the config file will be opened.
 3. Replace the area inside the quotes where it says ``REPLACE WITH QUEST IP`` with your Quest's IP address.
 4. Save the config file. (CTRL+S)
-5. Go to the start menu, type in Oculus Quest Presence Client and run the application. This won't open a window, as it runs in the background.
+5. Go to the start menu, type in Quest Discord Presence Client and run the application. This won't open a window, as it runs in the background.
 
 ## Linux and MacOS
 1. Download the correct ZIP file for your operating system from [here](https://github.com/Lauriethefish/Quest-Discord-Presence-Client/releases/latest).
