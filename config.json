@@ -1,5 +1,5 @@
 {
-    "QuestAddress": "192.168.0.72",
+    "QuestAddress": "REPLACE WITH QUEST IP",
     "QuestPort": 3500,
     "UpdateInterval": 2000
 }
