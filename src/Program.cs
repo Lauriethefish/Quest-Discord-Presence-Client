@@ -80,6 +80,7 @@ namespace Quest_Discord_Presence_Client
             // Then read the status as a string
             byte[] statusBytes = new byte[length];
             socket.Receive(statusBytes);
+            socket.Close(); // Close the socket again.
             string statusString = Encoding.UTF8.GetString(statusBytes);
 
             return JsonSerializer.Deserialize<Status>(statusString); // Deserialize it as a Status object
