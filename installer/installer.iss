@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Quest Discord Presence Client"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.4"
 #define MyAppPublisher "Lauriethefish#6700"
 #define MyAppURL "https://github.com/Lauriethefish/Quest-Discord-Presence-Client"
 #define MyAppExeName "Quest-Discord-Presence-Client.exe"
