@@ -31,11 +31,12 @@ namespace Quest_Discord_Presence_Client
             while(true) {
                 int timeBefore = DateTime.UtcNow.Millisecond;
 
+                _client.Invoke(); // Dispatch events
+
                 Status status;
-                try {
+                try {                    
                     status = GetStatus();
                     
-                    _client.Invoke(); // Dispatch events
                     // Set the received presence
                     _client.SetPresence(status.ConvertToDiscord());
                     Console.WriteLine("Successfully fetched presence");
@@ -52,10 +53,19 @@ namespace Quest_Discord_Presence_Client
                 Thread.Sleep(Math.Max(_config.UpdateInterval - timeElapsed, 0)); // Make sure we don't sleep for a negative amount of time!
             }
         }
+
+        // Disconnects the client if connected
+        private void DisconnectClient() {
+            if(_client != null) {
+                Console.WriteLine("Disposing client");
+                _client.Dispose();
+            }
+        }
         
         // Creates a new client in order to reconnect to discord
         private void ReconnectClient(object sender, ConnectionFailedMessage args) {
             Console.WriteLine("Connecting to Discord . . .");
+            DisconnectClient();
             try {
                 _client = new DiscordRpcClient("743131742759813160");
                 _client.Initialize();
