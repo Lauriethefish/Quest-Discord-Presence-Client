@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" CanResize="False" SizeToContent="Height" Width="312"
+        x:Class="Quest_Discord_Presence_Client.ConfigWindow"
+        Title="Quest Discord Presence Client">
+
+  <StackPanel Background="White"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="300">
+    <Border Padding="12">
+      <StackPanel>
+        <TextBlock Name="ipText" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBlock>
+        <StackPanel Background="White"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+          <TextBox Name="ipBox" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Watermark="Quest IP Address from SideQuest"></TextBox>
+          <Button Name="confirmIp">Enter a valid IP</Button>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <Border Padding="12">
+      <TextBlock Name="requestStatusText" HorizontalAlignment="Left">Status: Active</TextBlock>
+    </Border>
+  </StackPanel>
+</Window>
