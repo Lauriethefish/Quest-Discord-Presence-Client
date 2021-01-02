@@ -7,17 +7,20 @@ services, the [old client & app](https://github.com/madmagic007/Oculus-Quest-Pre
 
 ## Windows
 1. Download the installer for the [latest release](https://github.com/Lauriethefish/Quest-Discord-Presence-Client/releases/latest).
-2. Run the installer, and when you finish it, the config file will be opened.
-3. Replace the area inside the quotes where it says ``REPLACE WITH QUEST IP`` with your Quest's IP address. (found in SideQuest)
-4. Save the config file. (CTRL+S)
-5. Go to the start menu, type in Quest Discord Presence Client and run the application. This won't open a window, as it runs in the background.
+2. Run the installer, accept the license, and it will open the app once you are finished.
+3. Put your Quest's IP addresss (found in SideQuest) in the box and hit confirm.
+4. Open Beat Saber and check that it says that fetching the presence was successful.
+5. You can now close the app and it will run in the background, automatically starting/stopping presence whenever BS is open/closed.
+6. If you need to change your Quest IP, open the app from the start menu.
 
 ## Linux and MacOS
 1. Download the correct ZIP file for your operating system from [here](https://github.com/Lauriethefish/Quest-Discord-Presence-Client/releases/latest).
 2. Extract the ZIP somewhere on your computer.
-3. Edit ``config.json``, and replace the area inside the quotes where it says ``REPLACE WITH QUEST IP`` with your Quest's IP address. (found in SideQuest)
-4. Save the config.
-5. Run the ``Quest-Discord-Presence-Client`` to start querying the Quest.
+3. Run ``Quest-Discord-Presence-Client``. NOTE: If on Linux, you may need to mark the file as executable. To do this, run ``chmod +x Quest-Discord-Presence-Client`` in the directory where you extracted it.
+4. Put your Quest's IP addresss (found in SideQuest) in the box and hit confirm.
+5. Open Beat Saber and check that it says that fetching the presence was successful.
+6. You can now close the app and it will run in the background, automatically starting/stopping presence whenever BS is open/closed.
+7. If you need to change your Quest IP, open the app again.
 
 # Notes
 - If your Quest's IP address changes, you need to change it in the config file.
