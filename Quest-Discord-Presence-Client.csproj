@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Quest_Discord_Presence_Client</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="avalonia" Version="0.9.12" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.12" />
     <PackageReference Include="DiscordRichPresence" Version="1.143.0" />
   </ItemGroup>
 
