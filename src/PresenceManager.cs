@@ -54,7 +54,7 @@ namespace Quest_Discord_Presence_Client {
                 }
 
                 // Invoke the StatusChanged event if we couldn't get the presence last time but could this time, or vice-versa
-                if(oldRequestStatus != LastRequestStatus) {
+                if(oldRequestStatus != LastRequestStatus && LastRequestStatusChanged != null) {
                     LastRequestStatusChanged.Invoke(this, new StatusChangedEventArgs(){
                         OldStatus = oldRequestStatus,
                         NewStatus = LastRequestStatus
