@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Quest Discord Presence Client"
-#define MyAppVersion "1.4"
+#define MyAppVersion "1.5"
 #define MyAppPublisher "Lauriethefish#6700"
 #define MyAppURL "https://github.com/Lauriethefish/Quest-Discord-Presence-Client"
 #define MyAppExeName "Quest-Discord-Presence-Client.exe"
@@ -46,5 +46,9 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 
 [Run]
-Filename: "notepad.exe"; Parameters: "{app}\config.json"; Description: "Open the config File"; Flags: nowait postinstall skipifsilent runascurrentuser
+Filename: "{app}\Quest-Discord-Presence-Client.exe"; Description: "Open the client"; Flags: nowait postinstall skipifsilent
+
+// Kill the app to prevent errors while uninstalling
+[UninstallRun]
+Filename: "{cmd}"; Parameters: "/C ""taskkill /im Quest-Discord-Presence-Client.exe /f /t"
 

@@ -1,4 +1,4 @@
 You should make sure that the rich presence mod is installed in Beat Saber before opening the client on your PC.
 Discord also needs to be open for it to work, but it can't be in the browser - it must be the discord application.
 
-You also need to open the config file (see next page), and put in your Quest's IP address before opening the app on your PC. (it's in the start menu, after this point it will auto-start on boot)
+Make sure that you put the correct Quest IP in the window that opens, then press the change button.
