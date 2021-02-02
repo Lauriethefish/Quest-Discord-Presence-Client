@@ -32,7 +32,10 @@ namespace Quest_Discord_Presence_Client
             LoadConfig();
 
             PresenceManager = new PresenceManager(this);
-            InitializeUI(args); // Show the window for customizing the config
+            // Enfore the -nogui CLI option
+            if(!(args.Length > 0 && args[0] == "-nogui")) {
+                InitializeUI(args); // Show the window for customizing the config
+            }
 
             // Start fetching presence from the quest
             PresenceManager.QueryQuest();
