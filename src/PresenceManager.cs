@@ -15,6 +15,9 @@ namespace Quest_Discord_Presence_Client {
         private Client app;
         private DiscordRpcClient client;
 
+        private DateTime elapsedStartTime;
+        private bool wasElapsed = false;
+
         public ClientStatus LastRequestStatus {get; private set;} = ClientStatus.NoRequestMade;
 
         public event StatusChanged LastRequestStatusChanged;
@@ -37,9 +40,18 @@ namespace Quest_Discord_Presence_Client {
                 Status fetchedStatus;
                 try {                    
                     fetchedStatus = GetStatus();
+
+                    if(fetchedStatus.elapsed && !wasElapsed) {
+                        elapsedStartTime = DateTime.Now;
+                        Console.WriteLine("Started counting elapsed time");
+                        wasElapsed = true;
+                    }   else if(!fetchedStatus.elapsed && wasElapsed) {
+                        Console.WriteLine("Stopped counting elapsed time");
+                        wasElapsed = false;
+                    }
                     
                     // Set the received presence
-                    client.SetPresence(fetchedStatus.ConvertToDiscord());
+                    client.SetPresence(fetchedStatus.ConvertToDiscord(elapsedStartTime));
                     Console.WriteLine("Successfully fetched presence");
 
                     LastRequestStatus = ClientStatus.RequestSucceeded;
@@ -51,6 +63,7 @@ namespace Quest_Discord_Presence_Client {
                     client.ClearPresence();
 
                     LastRequestStatus = ClientStatus.RequestFailed;
+                    wasElapsed = false;
                 }
 
                 // Invoke the StatusChanged event if we couldn't get the presence last time but could this time, or vice-versa
