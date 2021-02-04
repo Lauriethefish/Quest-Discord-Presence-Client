@@ -39,7 +39,6 @@ namespace Quest_Discord_Presence_Client
 
             // Start fetching presence from the quest
             PresenceManager.QueryQuest();
-
         }
 
         static void Main(string[] args) {
