@@ -5,6 +5,10 @@ services, the [old client & app](https://github.com/madmagic007/Oculus-Quest-Pre
 
 # Installation instructions
 
+## MacOS users!
+Currently, this client has some issues with MacOS due to the cross-platform UI framework I'm using not initialising the window correctly on Mac.
+For now, please use [MadMagic's client](https://github.com/madmagic007/Oculus-Quest-Presence), as this runs fine on MacOS.
+
 ## Windows
 1. Download the installer for the [latest release](https://github.com/Lauriethefish/Quest-Discord-Presence-Client/releases/latest).
 2. Run the installer, accept the license, and it will open the app once you are finished.
@@ -13,7 +17,7 @@ services, the [old client & app](https://github.com/madmagic007/Oculus-Quest-Pre
 5. You can now close the app and it will run in the background, automatically starting/stopping presence whenever BS is open/closed.
 6. If you need to change your Quest IP, open the app from the start menu.
 
-## Linux and MacOS
+## Linux
 1. Download the correct ZIP file for your operating system from [here](https://github.com/Lauriethefish/Quest-Discord-Presence-Client/releases/latest).
 2. Extract the ZIP somewhere on your computer.
 3. Run ``Quest-Discord-Presence-Client``. NOTE: If on Linux, you may need to mark the file as executable. To do this, run ``chmod +x Quest-Discord-Presence-Client`` in the directory where you extracted it.
