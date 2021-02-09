@@ -42,7 +42,7 @@ namespace Quest_Discord_Presence_Client {
                     fetchedStatus = GetStatus();
 
                     if(fetchedStatus.elapsed && !wasElapsed) {
-                        elapsedStartTime = DateTime.Now;
+                        elapsedStartTime = DateTime.UtcNow;
                         Console.WriteLine("Started counting elapsed time");
                         wasElapsed = true;
                     }   else if(!fetchedStatus.elapsed && wasElapsed) {
