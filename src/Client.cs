@@ -80,25 +80,18 @@ namespace Quest_Discord_Presence_Client
                 configInInstallDirPath = "config.json";
             }
  
-            if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                Console.WriteLine("Attempting to use config in appdata - we're on windows");
-                // If we're on windows, we should copy the config from program files to the app data folder if there isn't one already
-                // The config used to be stored in program files, which was dumb, so we move it to app data
-                // The config file is also in program files just after installing the app, so we need to copy it then as well
-                string appDataFolder = Environment.GetEnvironmentVariable("APPDATA");
-                string discordPresenceAppData = appDataFolder + "\\Quest Discord Presence Client";
-                Directory.CreateDirectory(discordPresenceAppData);
+            Console.WriteLine("Attempting to use config in appdata - we're on windows");
+            // Copy the config from the install directory to appdata
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Quest Discord Presence Client/";
+            Directory.CreateDirectory(appDataPath);
 
-                string appDataConfigPath = discordPresenceAppData + "\\config.json";
-                if(!File.Exists(appDataConfigPath)) {
-                    Console.WriteLine("Copying program files config to app data. ..");
-                    File.Copy(configInInstallDirPath, appDataConfigPath);
-                }
-
-                return appDataConfigPath;
-            }   else    {
-                return configInInstallDirPath;
+            string appDataConfigPath = appDataPath + "config.json";
+            if(!File.Exists(appDataConfigPath)) {
+                Console.WriteLine("Copying program files config to app data. ..");
+                File.Copy(configInInstallDirPath, appDataConfigPath);
             }
+
+            return appDataConfigPath;
         }
 
         // Load/save the config using JSON serialization
