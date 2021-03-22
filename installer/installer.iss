@@ -21,13 +21,13 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\Lauri\Beat_Saber_Mod_Dev\Quest-Discord-Presence-Client\LICENSE
-InfoAfterFile=C:\Users\Lauri\Beat_Saber_Mod_Dev\Quest-Discord-Presence-Client\installer\information.txt
+LicenseFile=..\LICENSE
+InfoAfterFile=.\information.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=C:\Users\Lauri\Beat_Saber_Mod_Dev\Quest-Discord-Presence-Client\installer
-OutputBaseFilename=quest-discord-presence
+OutputDir=.\
+OutputBaseFilename=windows-installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,8 +37,8 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\Lauri\Beat_Saber_Mod_Dev\Quest-Discord-Presence-Client\publish\win-x64\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Lauri\Beat_Saber_Mod_Dev\Quest-Discord-Presence-Client\publish\win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\bin\Release\netcoreapp3.1\win-x64\publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\Release\netcoreapp3.1\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -46,9 +46,9 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-nogui";
 
 [Run]
-Filename: "{app}\Quest-Discord-Presence-Client.exe"; Description: "Open the client"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "Open the client"; Flags: nowait postinstall skipifsilent
 
 // Kill the app to prevent errors while uninstalling
 [UninstallRun]
-Filename: "{cmd}"; Parameters: "/C ""taskkill /im Quest-Discord-Presence-Client.exe /f /t"
+Filename: "{cmd}"; Parameters: "/C ""taskkill /im {#MyAppExeName} /f /t"
 

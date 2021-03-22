@@ -1,7 +1,8 @@
 bin/
 obj/
-# Folder where I copy the built files and the config file
-publish/ 
 .vscode/
-# Ignore the produced installer file
-installer/quest-discord-presence.exe
+
+# Ignore the build installer/extracted inno CLI
+installer/inno/
+installer/windows-installer.exe
+
