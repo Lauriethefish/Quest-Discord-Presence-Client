@@ -12,4 +12,7 @@
     <PackageReference Include="DiscordRichPresence" Version="1.143.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="resources/config.json" />
+  </ItemGroup>
 </Project>

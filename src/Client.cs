@@ -72,26 +72,30 @@ namespace Quest_Discord_Presence_Client
             }
         }
 
-        public string FindConfigPath() {
-            string installationPath = Assembly.GetEntryAssembly().Location;
-            string configInInstallDirPath = installationPath + "/config.json";
-            // If we can't find the above, check if there is a config in our working directory
-            if(!File.Exists(configInInstallDirPath)) {
-                configInInstallDirPath = "config.json";
-            }
- 
-            Console.WriteLine("Attempting to use config in appdata - we're on windows");
+        public string FindConfigPath() { 
+            Console.WriteLine("Attempting to use config in appdata");
             // Copy the config from the install directory to appdata
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Quest Discord Presence Client/";
             Directory.CreateDirectory(appDataPath);
 
             string appDataConfigPath = appDataPath + "config.json";
             if(!File.Exists(appDataConfigPath)) {
-                Console.WriteLine("Copying program files config to app data. ..");
-                File.Copy(configInInstallDirPath, appDataConfigPath);
+                Console.WriteLine("Copying config from resources to appdata . . .");
+                SaveResource("config.json", appDataConfigPath);
             }
 
             return appDataConfigPath;
+        }
+
+
+        // Saves the resource resourceName to the file destinationPath
+        private void SaveResource(string resourceName, string destinationPath)
+        {
+            Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Quest_Discord_Presence_Client.resources." + resourceName);
+            FileStream destStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write);
+
+            resourceStream.CopyTo(destStream);
+            destStream.Close();
         }
 
         // Load/save the config using JSON serialization
