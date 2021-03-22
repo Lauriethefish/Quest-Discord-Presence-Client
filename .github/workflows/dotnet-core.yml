@@ -28,4 +28,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.runtime }}
-        path: bin/Release/netcoreapp3.1/${{ matrix.runtime }}/publish/
+        path:
+          - bin/Release/netcoreapp3.1/${{ matrix.runtime }}/publish/
+          - config.json
