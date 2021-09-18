@@ -6,7 +6,6 @@ using System.Text.Json;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Avalonia;
-using Avalonia.Logging.Serilog;
 
 namespace Quest_Discord_Presence_Client
 {
@@ -49,10 +48,14 @@ namespace Quest_Discord_Presence_Client
             // Run the UI on another thread
             new Thread(() => {
                 Console.WriteLine("Hello from UI thread");
-                AppBuilder.Configure<App>()
-                    .UsePlatformDetect()
-                    .LogToDebug()
-                    .StartWithClassicDesktopLifetime(args);
+                try {
+                    AppBuilder.Configure<App>()
+                        .UsePlatformDetect()
+                        .LogToTrace(Avalonia.Logging.LogEventLevel.Debug)
+                        .StartWithClassicDesktopLifetime(args);
+                } catch (Exception ex) {
+                    Console.Error.WriteLine("Error from the UI thread: " + ex.Message);
+                }
             }).Start();
         }
 
